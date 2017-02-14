@@ -22,15 +22,6 @@ http {
     keepalive_timeout  5 5;
     tcp_nodelay        on;
 
-    ## Set a variable to help us decide if we need to add the
-    ## 'Docker-Distribution-Api-Version' header.
-    ## The registry always sets this header.
-    ## In the case of nginx performing auth, the header will be unset
-    ## since nginx is auth-ing before proxying.
-    map $upstream_http_docker_distribution_api_version $docker_distribution_api_version {
-      '' 'registry/2.0';
-    }
-
 
     server {
         listen         80;
@@ -92,14 +83,9 @@ http {
       ssl_stapling              on;
       ssl_stapling_verify       on;
 
-      # will allow "anonymous" pulling
-      # sandbox user should be created in nexus
-      if ($authorization = '') {
-        set $authorization 'Basic c2FuZGJveDpzYW5kYm94'; # sandbox:sandbox
-      }
 
       location / {
-        add_header 'Docker-Distribution-Api-Version' $docker_distribution_api_version always;
+        proxy_set_header X-Proxy_REMOTE-USER anonymous;
         proxy_pass http://nexus:8082;
         proxy_read_timeout    120;
         proxy_connect_timeout 90;
@@ -132,15 +118,9 @@ http {
       ssl_stapling              on;
       ssl_stapling_verify       on;
 
-      # will allow "anonymous" pulling
-      # sandbox user should be created in nexus
-      if ($authorization = '') {
-        set $authorization 'Basic c2FuZGJveDpzYW5kYm94'; # sandbox:sandbox
-      }
 
       location / {
-        add_header 'Docker-Distribution-Api-Version' $docker_distribution_api_version always;
-        proxy_set_header Authorization $authorization;
+        proxy_set_header X-Proxy_REMOTE-USER anonymous;
         proxy_pass http://nexus:8083;
         proxy_read_timeout    120;
         proxy_connect_timeout 90;

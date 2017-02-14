@@ -14,7 +14,13 @@ Docker compose, nexus3 with ssl support
    which includes both:
    - docker-dev
    - docker-proxy
-* Create `sandbox` user in Nexus with `sandbox` password
+* Configure a Request Header Authentication in Nexus Repository Manager
+  * Go to "administration/capabilities" in the UI
+  * Click on "new" to add a new capability
+  * Select the "Rut Auth" capability
+  * Fill in the header name "X-Proxy_REMOTE-USER"
+  * Save
+
 
 # Running
 Please check **./manage.sh** for help
