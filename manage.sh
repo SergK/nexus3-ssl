@@ -12,7 +12,7 @@ function init_env () {
   sudo mkdir -p "${VOLUME_PATH}"
   sudo chown 200:200 -R "${VOLUME_PATH}"
 
-  sed -i "s#{{SERVER_NAME}}#${SERVER_NAME}#g" "${BASE_DIR}/nginx/nginx.conf"
+  sed "s#{{SERVER_NAME}}#${SERVER_NAME}#g" "${BASE_DIR}/nginx/nginx.conf.tpl" > "${BASE_DIR}/nginx/nginx.conf"
 }
 
 
@@ -27,6 +27,11 @@ function check_ssl_key () {
 
 
 case "${IN_OPERATION}" in
+
+    init)
+      init_env
+      check_ssl_key
+    ;;
 
     status)
         docker-compose -f "${DOCKER_COMPOSE_CONF}" ps
@@ -53,6 +58,7 @@ case "${IN_OPERATION}" in
 Usage: $0 ACTION
 
  ACTION:
+   init                 generate config files and check ssl keys
    status               get containers status
    debug                run docker-compose in foreground
    start                start all containers in background
