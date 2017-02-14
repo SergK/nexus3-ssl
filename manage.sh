@@ -13,12 +13,13 @@ function init_env () {
   sudo chown 200:200 -R "${VOLUME_PATH}"
 
   sed "s#{{SERVER_NAME}}#${SERVER_NAME}#g" "${BASE_DIR}/nginx/nginx.conf.tpl" > "${BASE_DIR}/nginx/nginx.conf"
+  echo "Updating nginx.conf"
 }
 
 
 function check_ssl_key () {
   if [[ -f "${BASE_DIR}/nginx/ssl/ssl.key"  &&  -f "${BASE_DIR}/nginx/ssl/ssl.crt" ]]; then
-    echo "SSL keys file found, continue"
+    echo "SSL keys file found, continue..."
   else
     echo "No ssl files found. Exiting"
     exit 1
