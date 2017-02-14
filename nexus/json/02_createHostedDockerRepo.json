@@ -1,0 +1,25 @@
+{
+  "action":"coreui_Repository",
+  "method":"create",
+  "data":[{
+    "attributes":{
+      "docker":{
+        "httpPort":8082,
+        "v1Enabled":false
+      },
+      "storage":{
+        "blobStoreName":"default",
+        "strictContentTypeValidation":true,
+        "writePolicy":"ALLOW"}
+    },
+    "name":"docker-dev",
+    "format":"","type":"",
+    "url":"",
+    "online":true,
+    "checkbox-1385-inputEl":true,
+    "checkbox-1388-inputEl":false,
+    "recipe":"docker-hosted"
+  }],
+  "type":"rpc",
+  "tid":1010
+}

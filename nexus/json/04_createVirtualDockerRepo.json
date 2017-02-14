@@ -1,0 +1,29 @@
+{
+  "action":"coreui_Repository",
+  "method":"create",
+  "data":[{
+    "attributes":{
+      "docker":{
+        "httpPort":8083,
+        "v1Enabled":false
+      },
+      "storage":{
+        "blobStoreName":"default",
+        "strictContentTypeValidation":true
+      },
+      "group":{
+        "memberNames":["docker-dev","docker-proxy"]
+      }
+    },
+    "name":"docker-virtual",
+    "format":"",
+    "type":"",
+    "url":"",
+    "online":true,
+    "checkbox-1775-inputEl":true,
+    "checkbox-1778-inputEl":false,
+    "recipe":"docker-group"
+  }],
+  "type":"rpc",
+  "tid":1040
+}

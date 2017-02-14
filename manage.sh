@@ -32,6 +32,7 @@ case "${IN_OPERATION}" in
     init)
       init_env
       check_ssl_key
+      docker-compose -f "${DOCKER_COMPOSE_CONF}" build
     ;;
 
     status)
@@ -59,7 +60,8 @@ case "${IN_OPERATION}" in
 Usage: $0 ACTION
 
  ACTION:
-   init                 generate config files and check ssl keys
+   init                 [Optional] generate config files,
+                        check ssl keys, build required images
    status               get containers status
    debug                run docker-compose in foreground
    start                start all containers in background

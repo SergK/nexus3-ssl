@@ -45,3 +45,5 @@ services:
       - nexus-net
     depends_on:
       - nexus
+    environment:
+      DOCKER_UPSTREAM: ${UPSTREAM_DOCKER_REPO}
