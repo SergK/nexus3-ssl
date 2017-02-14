@@ -1,0 +1,13 @@
+{
+  "action":"capability_Capability",
+  "method":"create",
+  "data":[
+    { "id":"",
+      "typeId":"rutauth",
+      "notes":"",
+      "enabled":true,
+      "properties":{"httpHeader":"X-Proxy_REMOTE-USER"}
+    }],
+  "type":"rpc",
+  "tid":1000
+}

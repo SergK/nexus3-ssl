@@ -41,7 +41,7 @@ case "${IN_OPERATION}" in
     debug)
         init_env
         check_ssl_key
-        docker-compose -f "${DOCKER_COMPOSE_CONF}" up
+        docker-compose -f "${DOCKER_COMPOSE_CONF}" up --force-recreate
     ;;
 
     start)

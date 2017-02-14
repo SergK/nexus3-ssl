@@ -14,7 +14,7 @@ Docker compose, nexus3 with ssl support
    which includes both:
    - docker-dev
    - docker-proxy
-* Configure a Request Header Authentication in Nexus Repository Manager
+* [Done] Configure a Request Header Authentication in Nexus Repository Manager
   * Go to "administration/system/capabilities" in the UI
   * Click on "Create capability" to add a new capability
   * Select the "Rut Auth" capability

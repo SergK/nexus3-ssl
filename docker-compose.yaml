@@ -36,3 +36,12 @@ services:
       - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
      - nexus
+
+  manage-nexus:
+    container_name: nexus-manage
+    build: ./nexus/
+    image: nexus/manage
+    networks:
+      - nexus-net
+    depends_on:
+      - nexus
