@@ -1,0 +1,38 @@
+version: '2'
+
+networks:
+  nexus-net:
+    driver: bridge
+    driver_opts:
+      "com.docker.network.bridge.name": "nexus-net"
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.108.0.0/24
+        gateway: 10.108.0.1
+
+
+services:
+  nexus:
+    container_name: nexus
+    image: sonatype/nexus3
+    networks:
+      - nexus-net
+    volumes:
+      - ${VOLUME_PATH}:/nexus-data
+
+  nginx-proxy:
+    container_name: nexus-nginx-proxy
+    image: nginx
+    networks:
+      - nexus-net
+    links:
+      - nexus:nexus
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+     - nexus
