@@ -83,7 +83,14 @@ http {
       ssl_stapling              on;
       ssl_stapling_verify       on;
 
+      set $authorization $http_authorization;
+
+      if ($authorization = '') {
+        set $authorization 'Basic c2FuZGJveDpzYW5kYm94'; # sandbox:sandbox
+      }
+
       location / {
+        proxy_set_header Authorization $authorization;
         proxy_pass http://nexus:8082;
         proxy_read_timeout    120;
         proxy_connect_timeout 90;

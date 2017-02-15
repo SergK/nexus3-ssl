@@ -1,0 +1,15 @@
+{
+  "action":"coreui_Role",
+  "method":"create",
+  "data":[{
+    "version":"",
+    "source":"default",
+    "id":"sandbox",
+    "name":"sandbox",
+    "description":"Role for sandbox user operations on docker-dev repo",
+    "privileges":["nx-repository-view-docker-docker-dev-*"],
+    "roles":[]}
+  ],
+  "type":"rpc",
+  "tid":1040
+}
