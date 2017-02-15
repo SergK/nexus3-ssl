@@ -62,3 +62,8 @@ docker push dev-nexus.sandbox.example.com/my-container:v1.0.0
 # 3. pulling from virtual, which is dev+UPSTREAM_DOCKER_REPO
 docker pull virtual-nexus.sandbox.example.com/debian:jessie
 ```
+
+# Notes and limitations
+
+* push/pull to docker-dev repo requires authorization with `docker logon` procedure
+* pull from docker-virtual (which is docker-dev + docker-proxy) can be done anonymously

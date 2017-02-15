@@ -83,9 +83,7 @@ http {
       ssl_stapling              on;
       ssl_stapling_verify       on;
 
-
       location / {
-        proxy_set_header X-Proxy_REMOTE-USER anonymous;
         proxy_pass http://nexus:8082;
         proxy_read_timeout    120;
         proxy_connect_timeout 90;
