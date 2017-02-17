@@ -10,12 +10,20 @@ Install docker-compose in virtualenv
 * Update **env.config** file to meet your requirements:
 
 ```bash
-  # Data volume root dir
-  export VOLUME_PATH=/srv/nexus-data
-  # will be accessable with https://SERVER_NAME
-  export SERVER_NAME=nexus.sandbox.example.com
-  # will be used in docker-proxy upstream configuration
-  export UPSTREAM_DOCKER_REPO=https://docker-prod-virtual.docker.example.com
+# Data volume root dir
+export VOLUME_PATH=/srv/nexus-data
+
+# will be accessable with https://SERVER_NAME
+export SERVER_NAME=nexus.sandbox.example.com
+
+# docker dev repo with anonymous push/pull
+export DOCKER_DEV_NAME=docker-dev.sandbox.example.com
+
+# docker virtual repo with anonymous pull
+export DOCKER_VIRTUAL_NAME=docker-virtual.sandbox.example.com
+
+# will be used in docker-proxy upstream configuration
+export UPSTREAM_DOCKER_REPO=https://docker-prod-virtual.docker.example.com
 ```
 
 * Put `ssl.key` and `ssl.crt` files in in `nginx/ssl/` directory
@@ -46,9 +54,9 @@ Usage: ./manage.sh ACTION
 ```
 
 # Usage
-* Your nexus server will be available by address defined in `SERVER_NAME`
-* Your dev repository for pushing/pulling - `dev-SERVER_NAME`
-* Your proxy repository for pulling from upstream + dev - `virtual-SERVER_NAME`
+* Your nexus web interface will be available - `SERVER_NAME`
+* Your dev repository for pushing/pulling - `DOCKER_DEV_NAME`
+* Your proxy repository for pulling from upstream + dev - `DOCKER_VIRTUAL_NAME`
 For example:
 
 ```bash

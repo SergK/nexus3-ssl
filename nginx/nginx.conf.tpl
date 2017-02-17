@@ -66,7 +66,7 @@ http {
 
     server {
       listen       *:443 ssl;
-      server_name dev-{{SERVER_NAME}};
+      server_name {{DOCKER_DEV_NAME}};
 
       ssl on;
 
@@ -106,7 +106,7 @@ http {
 
     server {
       listen       *:443 ssl;
-      server_name virtual-{{SERVER_NAME}};
+      server_name {{DOCKER_VIRTUAL_NAME}};
 
       ssl on;
 

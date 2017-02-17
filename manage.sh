@@ -12,7 +12,10 @@ function init_env () {
   sudo mkdir -p "${VOLUME_PATH}"
   sudo chown 200:200 -R "${VOLUME_PATH}"
 
-  sed "s#{{SERVER_NAME}}#${SERVER_NAME}#g" "${BASE_DIR}/nginx/nginx.conf.tpl" > "${BASE_DIR}/nginx/nginx.conf"
+  sed -e "s#{{SERVER_NAME}}#${SERVER_NAME}#g" \
+      -e "s#{{DOCKER_DEV_NAME}}#${DOCKER_DEV_NAME}#g" \
+      -e "s#{{DOCKER_VIRTUAL_NAME}}#${DOCKER_VIRTUAL_NAME}#g" \
+      "${BASE_DIR}/nginx/nginx.conf.tpl" > "${BASE_DIR}/nginx/nginx.conf"
   echo "Updating nginx.conf"
 }
 
