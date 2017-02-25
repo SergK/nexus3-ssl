@@ -15,6 +15,8 @@ function init_env () {
   sed -e "s#{{SERVER_NAME}}#${SERVER_NAME}#g" \
       -e "s#{{DOCKER_DEV_NAME}}#${DOCKER_DEV_NAME}#g" \
       -e "s#{{DOCKER_VIRTUAL_NAME}}#${DOCKER_VIRTUAL_NAME}#g" \
+      -e "s#{{DOCKER_DEV_PORT}}#${DOCKER_DEV_PORT}#g" \
+      -e "s#{{DOCKER_VIRTUAL_PORT}}#${DOCKER_VIRTUAL_PORT}#g" \
       "${BASE_DIR}/nginx/nginx.conf.tpl" > "${BASE_DIR}/nginx/nginx.conf"
   echo "Updating nginx.conf"
 }
@@ -45,7 +47,7 @@ case "${IN_OPERATION}" in
     debug)
         init_env
         check_ssl_key
-        docker-compose -f "${DOCKER_COMPOSE_CONF}" up --force-recreate
+        docker-compose -f "${DOCKER_COMPOSE_CONF}" up --force-recreate --build
     ;;
 
     start)

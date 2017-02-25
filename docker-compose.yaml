@@ -29,8 +29,10 @@ services:
     links:
       - nexus:nexus
     ports:
-      - "443:443"
       - "80:80"
+      - "443:443"
+      - "${DOCKER_VIRTUAL_PORT}:${DOCKER_VIRTUAL_PORT}"
+      - "${DOCKER_DEV_PORT}:${DOCKER_DEV_PORT}"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
@@ -45,5 +47,3 @@ services:
       - nexus-net
     depends_on:
       - nexus
-    environment:
-      DOCKER_UPSTREAM: ${UPSTREAM_DOCKER_REPO}

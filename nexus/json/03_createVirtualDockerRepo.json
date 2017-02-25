@@ -12,7 +12,7 @@
         "strictContentTypeValidation":true
       },
       "group":{
-        "memberNames":["docker-dev","docker-proxy"]
+        "memberNames":["docker-dev"]
       }
     },
     "name":"docker-virtual",

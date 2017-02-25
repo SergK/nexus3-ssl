@@ -1,0 +1,16 @@
+{
+  "action":"coreui_User",
+  "method":"create",
+  "data":[{
+    "userId":"publisher",
+    "version":"",
+    "firstName":"publisher",
+    "lastName":"publisher",
+    "email":"publisher@example.com",
+    "password":"publisher",
+    "status":"active",
+    "roles":["nx-anonymous","publisher"]
+  }],
+  "type":"rpc",
+  "tid":1050
+}

@@ -22,6 +22,7 @@ http {
     keepalive_timeout  5 5;
     tcp_nodelay        on;
 
+    server_tokens off;
 
     server {
         listen         80;
@@ -65,7 +66,7 @@ http {
     }
 
     server {
-      listen       *:443 ssl;
+      listen       *:{{DOCKER_DEV_PORT}} ssl;
       server_name {{DOCKER_DEV_NAME}};
 
       ssl on;
@@ -83,14 +84,7 @@ http {
       ssl_stapling              on;
       ssl_stapling_verify       on;
 
-      set $authorization $http_authorization;
-
-      if ($authorization = '') {
-        set $authorization 'Basic c2FuZGJveDpzYW5kYm94'; # sandbox:sandbox
-      }
-
       location / {
-        proxy_set_header Authorization $authorization;
         proxy_pass http://nexus:8082;
         proxy_read_timeout    120;
         proxy_connect_timeout 90;
@@ -105,7 +99,7 @@ http {
     }
 
     server {
-      listen       *:443 ssl;
+      listen       *:{{DOCKER_VIRTUAL_PORT}} ssl;
       server_name {{DOCKER_VIRTUAL_NAME}};
 
       ssl on;
