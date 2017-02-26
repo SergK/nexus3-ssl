@@ -9,6 +9,7 @@ source "${BASE_DIR}/env.config"
 
 
 function init_env () {
+  git -C "${BASE_DIR}" submodule update --init --recursive
   sudo mkdir -p "${VOLUME_PATH}"
   sudo chown 200:200 -R "${VOLUME_PATH}"
 
