@@ -60,6 +60,11 @@ case "${IN_OPERATION}" in
         docker-compose -f "${DOCKER_COMPOSE_CONF}" down
     ;;
 
+    clean)
+        $0 stop
+        docker rmi nginx nexus/manage sonatype/nexus3 jwilder/dockerize
+    ;;
+
     *)
         cat << EOF
 Usage: $0 ACTION
