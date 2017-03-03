@@ -22,6 +22,7 @@ http {
     keepalive_timeout  5 5;
     tcp_nodelay        on;
 
+    server_names_hash_bucket_size  64;
 
     server {
         listen         80;
