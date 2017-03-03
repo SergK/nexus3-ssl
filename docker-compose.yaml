@@ -28,7 +28,7 @@ services:
 
   nginx-proxy:
     container_name: nexus-nginx-proxy
-    image: nginx
+    image: nginx:1.11.10
     restart: unless-stopped
     networks:
       - nexus-net
@@ -36,7 +36,7 @@ services:
       - nexus:nexus
     ports:
       - "80:80"
-      - "443:443"
+      - "${WEB_SERVER_PORT}:${WEB_SERVER_PORT}"
       - "${DOCKER_VIRTUAL_PORT}:${DOCKER_VIRTUAL_PORT}"
       - "${DOCKER_DEV_PORT}:${DOCKER_DEV_PORT}"
     volumes:

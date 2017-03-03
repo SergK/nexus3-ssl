@@ -4,6 +4,7 @@ Docker compose, nexus3 with ssl support, docker-proxy and anonymous pulling
 # Installation
 
 Install docker-compose in virtualenv
+You user should also have sudo permissions for chown command
 
 # Steps to deploy
 
@@ -13,17 +14,21 @@ Install docker-compose in virtualenv
 # Data volume root dir
 export VOLUME_PATH=/srv/nexus-data
 
-# will be accessable with https://SERVER_NAME
-export SERVER_NAME=nexus.sandbox.example.com
+# Java options
+export JAVA_MIN_MEM=4096m
+export JAVA_MAX_MEM=4096m
+
+# will be accessable with https://WEB_SERVER_NAME
+export WEB_SERVER_NAME=sandbox.example.com
+export WEB_SERVER_PORT=443
 
 # docker dev repo with anonymous push/pull
-export DOCKER_DEV_NAME=docker-dev.sandbox.example.com
+export DOCKER_DEV_NAME=sandbox.example.com
+export DOCKER_DEV_PORT=5000
 
 # docker virtual repo with anonymous pull
-export DOCKER_VIRTUAL_NAME=docker-virtual.sandbox.example.com
-
-# will be used in docker-proxy upstream configuration
-export UPSTREAM_DOCKER_REPO=https://docker-prod-virtual.docker.example.com
+export DOCKER_VIRTUAL_NAME=sandbox.example.com
+export DOCKER_VIRTUAL_PORT=5002
 ```
 
 * Put `ssl.key` and `ssl.crt` files in in `nginx/ssl/` directory
@@ -33,11 +38,9 @@ export UPSTREAM_DOCKER_REPO=https://docker-prod-virtual.docker.example.com
 Implemeted by running `curl` with related `json` files
 
 * Create [Remote User Token](https://books.sonatype.com/nexus-book/reference3/security.html#remote-user-token)
-* Create **docker-dev** repository with listening on **8082** port
-* Create **docker-proxy** repository with pointing to Upstream docker repo **UPSTREAM_DOCKER_REPO** defined in `env.config`
-* Create **docker-virtual** repository with listening on **8083** port and which includes both:
+* Create **docker-dev** repository with listening on **DOCKER_DEV_PORT** port
+* Create **docker-virtual** repository with listening on **DOCKER_VIRTUAL_PORT** port and which includes:
    - docker-dev
-   - docker-proxy
 
 # Running
 Please check **./manage.sh** for help
@@ -54,24 +57,25 @@ Usage: ./manage.sh ACTION
 ```
 
 # Usage
-* Your nexus web interface will be available - `SERVER_NAME`
+* Your nexus web interface will be available - `WEB_SERVER_NAME`
 * Your dev repository for pushing/pulling - `DOCKER_DEV_NAME`
-* Your proxy repository for pulling from upstream + dev - `DOCKER_VIRTUAL_NAME`
+* Your repository for anonymous pulling from dev - `DOCKER_VIRTUAL_NAME`
 For example:
 
 ```bash
-# 1. nexus web interface available https://nexus.sandbox.example.com
+# 1. nexus web interface available https://sandbox.example.com
 # with admin:admin123 (nexus default credentials)
-SERVER_NAME=nexus.sandbox.example.com
+WEB_SERVER_NAME=sandbox.example.com
 
 # 2. pushing to dev
-docker push dev-nexus.sandbox.example.com/my-container:v1.0.0
+docker login -u publisher -p publisher dev-nexus.sandbox.example.com:5000
+docker push sandbox.example.com:5000/my-container:v1.0.0
 
-# 3. pulling from virtual, which is dev+UPSTREAM_DOCKER_REPO
-docker pull virtual-nexus.sandbox.example.com/debian:jessie
+# 3. pulling from virtual, which is dev
+docker pull sandbox.example.com:5002/my-container:v1.0.0
 ```
 
 # Notes and limitations
 
-* push/pull to docker-dev repo DOESN'T require authorization since we are doing this transparantly on proxy
-* pull from docker-virtual (which is docker-dev + docker-proxy) can be done anonymously as well
+* push/pull to docker-dev repo REQUIRES authorization with default publisher:publisher
+* pull from docker-virtual (which is docker-dev) can be done anonymously

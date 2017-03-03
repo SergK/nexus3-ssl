@@ -26,15 +26,15 @@ http {
 
     server {
         listen         80;
-        server_name    {{SERVER_NAME}};
+        server_name    {{WEB_SERVER_NAME}};
 
-        return         301 https://$server_name$request_uri;
+        return         301 https://$server_name:{{WEB_SERVER_PORT}}$request_uri;
     }
 
 
     server {
-      listen       *:443 ssl;
-      server_name {{SERVER_NAME}};
+      listen       *:{{WEB_SERVER_PORT}} ssl;
+      server_name {{WEB_SERVER_NAME}};
 
       ssl on;
 
@@ -59,6 +59,7 @@ http {
         client_max_body_size 8G;
         proxy_set_header X-Forwarded-For $remote_addr;
         proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Host $host:{{WEB_SERVER_PORT}};
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header Host $host;
       }

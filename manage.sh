@@ -13,7 +13,8 @@ function init_env () {
   sudo mkdir -p "${VOLUME_PATH}"
   sudo chown 200:200 -R "${VOLUME_PATH}"
 
-  sed -e "s#{{SERVER_NAME}}#${SERVER_NAME}#g" \
+  sed -e "s#{{WEB_SERVER_NAME}}#${WEB_SERVER_NAME}#g" \
+      -e "s#{{WEB_SERVER_PORT}}#${WEB_SERVER_PORT}#g" \
       -e "s#{{DOCKER_DEV_NAME}}#${DOCKER_DEV_NAME}#g" \
       -e "s#{{DOCKER_VIRTUAL_NAME}}#${DOCKER_VIRTUAL_NAME}#g" \
       -e "s#{{DOCKER_DEV_PORT}}#${DOCKER_DEV_PORT}#g" \
