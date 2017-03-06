@@ -22,7 +22,7 @@ export JAVA_MAX_MEM=4096m
 export WEB_SERVER_NAME=sandbox.example.com
 export WEB_SERVER_PORT=443
 
-# docker dev repo with anonymous push/pull
+# docker dev repo with authorized push/pull
 export DOCKER_DEV_NAME=sandbox.example.com
 export DOCKER_DEV_PORT=5000
 
@@ -57,8 +57,8 @@ Usage: ./manage.sh ACTION
 ```
 
 # Usage
-* Your nexus web interface will be available - `WEB_SERVER_NAME`
-* Your dev repository for pushing/pulling - `DOCKER_DEV_NAME`
+* Your nexus web interface will be available - `https://WEB_SERVER_NAME:WEB_SERVER_PORT`
+* Your docker-dev repository for pushing/pulling - `DOCKER_DEV_NAME`
 * Your repository for anonymous pulling from dev - `DOCKER_VIRTUAL_NAME`
 For example:
 
@@ -68,7 +68,7 @@ For example:
 WEB_SERVER_NAME=sandbox.example.com
 
 # 2. pushing to dev
-docker login -u publisher -p publisher dev-nexus.sandbox.example.com:5000
+docker login -u publisher -p publisher sandbox.example.com:5000
 docker push sandbox.example.com:5000/my-container:v1.0.0
 
 # 3. pulling from virtual, which is dev
