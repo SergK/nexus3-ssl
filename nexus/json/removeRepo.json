@@ -1,0 +1,15 @@
+{
+    "name": "deleteRepo",
+    "type": "groovy",
+    "content": "
+      repolist=['maven-central', 'maven-public', 'maven-releases',
+                'maven-snapshots', 'nuget-group', 'nuget-hosted', 'nuget.org-proxy'];
+      for (repo in repolist) {
+        try {
+          repository.getRepositoryManager().delete(repo)
+        }
+        catch (IllegalStateException exception) {
+          continue;
+        }
+      }"
+}
