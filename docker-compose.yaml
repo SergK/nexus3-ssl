@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 
 networks:
   nexus-net:
@@ -16,6 +16,7 @@ services:
   nexus:
     container_name: nexus
     image: sonatype/nexus3
+    init: true
     networks:
       - nexus-net
     volumes:
@@ -24,6 +25,7 @@ services:
   nginx-proxy:
     container_name: nexus-nginx-proxy
     image: nginx
+    init: true
     networks:
       - nexus-net
     links:
@@ -40,6 +42,7 @@ services:
   manage-nexus:
     container_name: nexus-manage
     build: ./nexus/
+    init: true
     image: nexus/manage
     networks:
       - nexus-net
